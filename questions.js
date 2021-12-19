@@ -9,3 +9,23 @@ const ask = (i = 0) => {
 }
 
 ask();
+
+const answers = [];
+process.stdin.on('data', data => {
+    answers.push(data.toString().trim());
+    if (answers.length < questions.length) {
+        ask(answers.length);
+    } else {
+        process.exit()
+    }
+});
+
+process.on('exit', () => {
+    const [user, activity, lang] = answers;
+
+    process.stdout.write(`
+    Thank you for your answers
+
+    Go ${activity} ${user}, you can write ${lang} code later!!
+    `);
+});
